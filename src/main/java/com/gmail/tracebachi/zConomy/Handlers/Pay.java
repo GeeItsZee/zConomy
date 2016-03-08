@@ -57,9 +57,15 @@ public class Pay
 
         Double amount = HandlerUtils.parseDouble(amountString);
 
-        if(amount == null)
+        if(amount == null || amount <= 0)
         {
             sender.sendMessage(Settings.format("InvalidAmount", amountString));
+            return;
+        }
+
+        if(sender.getName().equalsIgnoreCase(receiver))
+        {
+            sender.sendMessage(Settings.format("PayToSelf"));
             return;
         }
 
@@ -85,6 +91,7 @@ public class Pay
 
             if(senderAccount.getBalance().compareTo(new BigDecimal(amount)) < 0)
             {
+                sender.sendMessage(Settings.format("InsufficientFunds", String.valueOf(amount)));
                 return;
             }
 
