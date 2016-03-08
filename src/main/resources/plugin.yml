@@ -1,0 +1,28 @@
+name: zConomy
+main: com.gmail.tracebachi.zConomy.zConomy
+version: 1.0
+author: Trace Bachi (tracebachi@gmail.com, BigBossZee)
+depends: [Vault, DbShare]
+
+commands:
+  money:
+    description: Main command for the plugin
+    aliases: [balance, bal]
+
+permissions:
+  zConomy.Create:
+    description: Create accounts.
+  zConomy.Give:
+    description: Give money to accounts.
+  zConomy.Pay:
+    description: Make payments to others.
+  zConomy.Purge:
+    description: Purge old or default balance accounts.
+  zConomy.Remove:
+    description: Remove accounts.
+  zConomy.Set:
+    description: Set money for an account.
+  zConomy.Take:
+    description: Take money from accounts.
+  zConomy.Top:
+    description: View top accounts.

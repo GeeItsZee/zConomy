@@ -1,0 +1,61 @@
+# iConomy-SQL Configuration File
+
+# Name of the database in DbShare
+DatabaseName: Main
+
+# Name of the economy table
+TableName: zConomy
+
+# Currency names
+CurrencyName:
+
+  Singular: 'Dollar'
+  Plural: 'Dollars'
+
+# Default balance of a new account
+DefaultBalance: 500.0
+
+# Number of days an account must be unused before being purged
+PurgeDays: 31
+
+# Message Formats
+Formats:
+
+  NoAccountForConsole: 'Console does not have and cannot have a bank account.'
+  NoAccountFound: '{0} does not have an account.'
+  ExistingAccountFound: '{0} already has an account.'
+  InvalidAmount: '{0} is not a valid amount.'
+  NoPermission: 'You do not have the {0} permission.'
+
+  AccountCreated: 'Created account for {0}'
+  AccountRemoved: 'Removed account for {0}'
+  AccountBalance: 'Balance: {0}'
+  AccountSet: 'Set balance for {0} to {1}'
+  AccountGive: 'Given {0} to {1}'
+  AccountTake: 'Took {0} from {1}'
+
+  PaySent: 'You sent {0} to {1}'
+  PayReceived: 'You received {0} from {1}'
+
+  InvalidPurgeDays: '{0} is not a valid number of days for account purge.'
+  AccountsPurged: '{0} accounts were purged due to inactivity or default balance.'
+
+  TopListHeader: 'Displaying Top 10 accounts:'
+  TopListItemFormat: '{0}. {1} has {2}'
+
+  GeneralFailure: 'Uh oh! Report this to an admin or dev: {0}'
+
+  HelpMessage: |
+               /money - Check your balance
+               /money create <name> - Create a new bank account
+               /money give <name> <amount> - Add money to a bank account
+               /money help - Display this help message
+               /money pay <name> <amount> - Transfer money from your bank account to another
+               /money purge - Remove banks with the default money
+               /money remove <name> - Remove a bank account
+               /money set <name> <amount> - Set the money for a bank account
+               /money take <name> <amount> - Take money from a bank account
+               /money top - Find the top 10 bank accounts with the most money
+
+# Debug Mode?
+debug: false
