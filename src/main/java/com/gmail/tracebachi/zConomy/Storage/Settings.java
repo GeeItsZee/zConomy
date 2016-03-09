@@ -18,6 +18,7 @@ package com.gmail.tracebachi.zConomy.Storage;
 
 import com.gmail.tracebachi.DbShare.DbShare;
 import com.zaxxer.hikari.HikariDataSource;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.text.MessageFormat;
@@ -52,7 +53,8 @@ public class Settings
 
         for(Map.Entry<String, Object> entry : section.getValues(false).entrySet())
         {
-            formats.put(entry.getKey(), new MessageFormat((String) entry.getValue()));
+            String value = ChatColor.translateAlternateColorCodes('&', (String) entry.getValue());
+            formats.put(entry.getKey(), new MessageFormat(value));
         }
 
         return false;

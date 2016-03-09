@@ -60,4 +60,4 @@ Formats:
                /money top - Find the top 10 bank accounts with the most money
 
 # Debug Mode?
-debug: false
+Debug: false
