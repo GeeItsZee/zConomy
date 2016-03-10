@@ -22,6 +22,10 @@ import com.gmail.tracebachi.zConomy.zConomy;
 import com.gmail.tracebachi.zConomy.zConomyDatabase;
 import org.bukkit.command.CommandSender;
 
+import java.math.BigDecimal;
+
+import static com.gmail.tracebachi.zConomy.Utils.HandlerUtils.formatAmount;
+
 /**
  * Created by Trace Bachi (tracebachi@gmail.com, BigBossZee) on 3/6/16.
  */
@@ -51,8 +55,8 @@ public class Balance
         }
         else
         {
-            String accountBalance = account.getBalance().toString();
-            sender.sendMessage(Settings.format("AccountBalance", accountBalance));
+            BigDecimal balance = account.getBalance();
+            sender.sendMessage(Settings.format("AccountBalance", formatAmount(balance)));
         }
     }
 }

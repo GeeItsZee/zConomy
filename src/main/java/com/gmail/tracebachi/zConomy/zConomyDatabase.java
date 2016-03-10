@@ -71,7 +71,7 @@ public class zConomyDatabase
                 statement.setString(1, account.getOwner());
                 statement.setBigDecimal(2, account.getBalance());
 
-                if(statement.execute())
+                if(statement.executeUpdate() > 0)
                 {
                     AccountCreateEvent event = new AccountCreateEvent(account);
                     Bukkit.getPluginManager().callEvent(event);
@@ -152,7 +152,7 @@ public class zConomyDatabase
                     Timestamp timestamp = resultSet.getTimestamp("timestamp");
                     BankAccount account = new BankAccount(owner, balance, timestamp.getTime());
 
-                    plugin.debug("Found account: " + account);
+                    plugin.debug("Found account (getBalance): " + account);
                     return account;
                 }
             }
@@ -187,7 +187,7 @@ public class zConomyDatabase
                         Timestamp timestamp = resultSet.getTimestamp("timestamp");
                         BankAccount account = new BankAccount(owner, balance, timestamp.getTime());
 
-                        plugin.debug("Found account: " + account);
+                        plugin.debug("Found account (getBalances): " + account);
                         accountsMap.put(owner.toLowerCase(), account);
                     }
 
@@ -348,12 +348,10 @@ public class zConomyDatabase
         return
             " CREATE TABLE IF NOT EXISTS " + Settings.getTableName() +
             "(" +
-            " `id`          INT UNSIGNED NOT NULL AUTO_INCREMENT," +
             " `owner`       VARCHAR(64) NOT NULL," +
             " `balance`     DECIMAL(20, 2) NOT NULL," +
             " `timestamp`   DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP," +
-            " CONSTRAINT PRIMARY KEY (`id`)," +
-            " CONSTRAINT UNIQUE KEY (`owner`)" +
+            " CONSTRAINT PRIMARY KEY (`owner`)," +
             " ) ENGINE = InnoDB DEFAULT CHARSET = utf8;";
     }
 
@@ -402,9 +400,9 @@ public class zConomyDatabase
     {
         return
             " UPDATE " + Settings.getTableName() +
-                " SET balance = balance + ?" +
-                " WHERE owner = ?" +
-                " LIMIT 1;";
+            " SET balance = balance + ?" +
+            " WHERE owner = ?" +
+            " LIMIT 1;";
     }
 
     private String selectTopAccountsQuery()

@@ -14,18 +14,34 @@
  * You should have received a copy of the GNU General Public License
  * along with zConomy.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.gmail.tracebachi.zConomy.Utils;
+package com.gmail.tracebachi.zConomy.Handlers;
 
+import com.gmail.tracebachi.zConomy.Storage.Settings;
+import com.gmail.tracebachi.zConomy.zConomy;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 /**
  * Created by Trace Bachi (tracebachi@gmail.com, BigBossZee) on 3/6/16.
  */
-public interface CommandUtils
+public class Reload
 {
-    static boolean isConsole(CommandSender sender)
+    private final zConomy plugin;
+
+    public Reload(zConomy plugin)
     {
-        return !(sender instanceof Player);
+        this.plugin = plugin;
+    }
+
+    public void handle(CommandSender sender)
+    {
+        if(!sender.hasPermission("zConomy.Reload"))
+        {
+            sender.sendMessage(Settings.format("NoPermission", "zConomy.Reload"));
+            return;
+        }
+
+        plugin.reloadConfig();
+        Settings.read(plugin.getConfig());
+        sender.sendMessage(Settings.format("ConfigReloaded"));
     }
 }

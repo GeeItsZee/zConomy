@@ -19,12 +19,12 @@ package com.gmail.tracebachi.zConomy;
 import com.gmail.tracebachi.zConomy.Exceptions.ExistingBankAccountException;
 import com.gmail.tracebachi.zConomy.Storage.BankAccount;
 import com.gmail.tracebachi.zConomy.Storage.Settings;
+import com.gmail.tracebachi.zConomy.Utils.HandlerUtils;
 import com.gmail.tracebachi.zConomy.Utils.Shutdownable;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.OfflinePlayer;
 
-import java.text.DecimalFormat;
 import java.util.Collections;
 import java.util.List;
 
@@ -34,8 +34,6 @@ import java.util.List;
 @SuppressWarnings("deprecation")
 public class zConomyVault implements Economy, Shutdownable
 {
-    private static final DecimalFormat decimalFormat = new DecimalFormat("#,###.00");
-
     private zConomy plugin;
 
     public zConomyVault(zConomy plugin)
@@ -96,7 +94,7 @@ public class zConomyVault implements Economy, Shutdownable
      */
     public String format(double amount)
     {
-        return decimalFormat.format(amount);
+        return HandlerUtils.formatAmount(amount);
     }
 
     /**
@@ -128,6 +126,8 @@ public class zConomyVault implements Economy, Shutdownable
     @Deprecated
     public boolean hasAccount(String playerName)
     {
+        plugin.debug("zConomyVault#hasAccount()");
+
         BankAccount account = plugin.getzConomyDatabase().getBalance(playerName);
         return account != null;
     }
@@ -142,8 +142,7 @@ public class zConomyVault implements Economy, Shutdownable
      */
     public boolean hasAccount(OfflinePlayer player)
     {
-        BankAccount account = plugin.getzConomyDatabase().getBalance(player.getName());
-        return account != null;
+        return hasAccount(player.getName());
     }
 
     /**
@@ -166,7 +165,7 @@ public class zConomyVault implements Economy, Shutdownable
      */
     public boolean hasAccount(OfflinePlayer player, String worldName)
     {
-        return hasAccount(player);  // TODO Account for purge?
+        return hasAccount(player);
     }
 
     /**
@@ -175,6 +174,8 @@ public class zConomyVault implements Economy, Shutdownable
     @Deprecated
     public double getBalance(String playerName)
     {
+        plugin.debug("zConomyVault#getBalance()");
+
         BankAccount account = plugin.getzConomyDatabase().getBalance(playerName);
         return (account != null) ? account.getBalance().doubleValue() : 0.00D;
     }
@@ -187,8 +188,7 @@ public class zConomyVault implements Economy, Shutdownable
      */
     public double getBalance(OfflinePlayer player)
     {
-        BankAccount account = plugin.getzConomyDatabase().getBalance(player.getName());
-        return (account != null) ? account.getBalance().doubleValue() : 0.00D;
+        return getBalance(player.getName());
     }
 
     /**
@@ -218,6 +218,8 @@ public class zConomyVault implements Economy, Shutdownable
     @Deprecated
     public boolean has(String playerName, double amount)
     {
+        plugin.debug("zConomyVault#has()");
+
         return getBalance(playerName) >= amount;
     }
 
@@ -230,7 +232,7 @@ public class zConomyVault implements Economy, Shutdownable
      */
     public boolean has(OfflinePlayer player, double amount)
     {
-        return getBalance(player) >= amount;
+        return has(player.getName(), amount);
     }
 
     /**
@@ -262,6 +264,8 @@ public class zConomyVault implements Economy, Shutdownable
     @Deprecated
     public EconomyResponse withdrawPlayer(String playerName, double amount)
     {
+        plugin.debug("zConomyVault#withdrawPlayer()");
+
         if(amount < 0)
         {
             return new EconomyResponse(0, 0, EconomyResponse.ResponseType.FAILURE, "Cannot withdraw negative funds");
@@ -326,6 +330,8 @@ public class zConomyVault implements Economy, Shutdownable
     @Deprecated
     public EconomyResponse depositPlayer(String playerName, double amount)
     {
+        plugin.debug("zConomyVault#depositPlayer()");
+
         if(amount < 0)
         {
             return new EconomyResponse(0, 0, EconomyResponse.ResponseType.FAILURE, "Cannot deposit negative funds");
@@ -386,6 +392,8 @@ public class zConomyVault implements Economy, Shutdownable
     @Deprecated
     public EconomyResponse createBank(String name, String player)
     {
+        plugin.debug("zConomyVault#createBank()");
+
         zConomyDatabase zConomyDatabase = plugin.getzConomyDatabase();
 
         try
@@ -417,6 +425,8 @@ public class zConomyVault implements Economy, Shutdownable
      */
     public EconomyResponse deleteBank(String name)
     {
+        plugin.debug("zConomyVault#deleteBank()");
+
         zConomyDatabase zConomyDatabase = plugin.getzConomyDatabase();
         boolean found = zConomyDatabase.removeAccount(name);
 
@@ -437,6 +447,8 @@ public class zConomyVault implements Economy, Shutdownable
      */
     public EconomyResponse bankBalance(String name)
     {
+        plugin.debug("zConomyVault#bankBalance()");
+
         BankAccount account = plugin.getzConomyDatabase().getBalance(name);
 
         if(account == null)
@@ -458,6 +470,8 @@ public class zConomyVault implements Economy, Shutdownable
      */
     public EconomyResponse bankHas(String name, double amount)
     {
+        plugin.debug("zConomyVault#bankHas()");
+
         BankAccount account = plugin.getzConomyDatabase().getBalance(name);
 
         if(account == null)
@@ -558,7 +572,7 @@ public class zConomyVault implements Economy, Shutdownable
      */
     public List<String> getBanks()
     {
-        return Collections.singletonList(".getBanks() is unsupported");
+        return Collections.singletonList("Economy.getBanks() is unsupported");
     }
 
     /**
@@ -598,6 +612,6 @@ public class zConomyVault implements Economy, Shutdownable
      */
     public boolean createPlayerAccount(OfflinePlayer player, String worldName)
     {
-        return createPlayerAccount(player, worldName);
+        return createPlayerAccount(player);
     }
 }

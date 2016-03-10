@@ -19,11 +19,16 @@ package com.gmail.tracebachi.zConomy.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+
 /**
  * Created by Trace Bachi (tracebachi@gmail.com, BigBossZee) on 3/6/16.
  */
 public interface HandlerUtils
 {
+    DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#,##0.00");
+
     static Integer parseInt(String source)
     {
         try
@@ -46,6 +51,16 @@ public interface HandlerUtils
         {
             return null;
         }
+    }
+
+    static String formatAmount(BigDecimal amount)
+    {
+        return formatAmount(amount.doubleValue());
+    }
+
+    static String formatAmount(double amount)
+    {
+        return DECIMAL_FORMAT.format(amount);
     }
 
     static void sendMessage(String name, String message)

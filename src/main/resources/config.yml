@@ -46,6 +46,7 @@ Formats:
   TopListItemFormat: '{0}. {1} has {2}'
 
   GeneralFailure: 'Uh oh! Report this to an admin or dev: {0}'
+  ConfigReloaded: 'zConomy configuration has been reloaded.'
 
   HelpMessage: |
                /money - Check your balance

@@ -35,6 +35,7 @@ public class CommandMoney implements CommandExecutor, Registerable, Shutdownable
     private Help help;
     private Pay pay;
     private Purge purge;
+    private Reload reload;
     private Remove remove;
     private Set set;
     private Take take;
@@ -49,6 +50,7 @@ public class CommandMoney implements CommandExecutor, Registerable, Shutdownable
         this.pay = new Pay(plugin);
         this.purge = new Purge(plugin);
         this.help = new Help();
+        this.reload = new Reload(plugin);
         this.remove = new Remove(plugin);
         this.set = new Set(plugin);
         this.take = new Take(plugin);
@@ -110,6 +112,10 @@ public class CommandMoney implements CommandExecutor, Registerable, Shutdownable
         else if(args[0].equalsIgnoreCase("purge"))
         {
             purge.handle(sender);
+        }
+        else if(args.length >= 1 && args[0].equalsIgnoreCase("reload"))
+        {
+            reload.handle(sender);
         }
         else if(args.length >= 2 && args[0].equalsIgnoreCase("remove"))
         {

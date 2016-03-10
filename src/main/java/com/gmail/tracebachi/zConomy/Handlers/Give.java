@@ -22,6 +22,8 @@ import com.gmail.tracebachi.zConomy.zConomy;
 import com.gmail.tracebachi.zConomy.zConomyDatabase;
 import org.bukkit.command.CommandSender;
 
+import static com.gmail.tracebachi.zConomy.Utils.HandlerUtils.formatAmount;
+
 /**
  * Created by Trace Bachi (tracebachi@gmail.com, BigBossZee) on 3/6/16.
  */
@@ -61,7 +63,7 @@ public class Give
 
         if(found)
         {
-            sender.sendMessage(Settings.format("AccountGive", amountString, name));
+            sender.sendMessage(Settings.format("AccountGive", formatAmount(amount), name));
         }
         else
         {

@@ -18,6 +18,7 @@ package com.gmail.tracebachi.zConomy.Handlers;
 
 import com.gmail.tracebachi.zConomy.Storage.BankAccount;
 import com.gmail.tracebachi.zConomy.Storage.Settings;
+import com.gmail.tracebachi.zConomy.Utils.HandlerUtils;
 import com.gmail.tracebachi.zConomy.zConomy;
 import com.gmail.tracebachi.zConomy.zConomyDatabase;
 import org.bukkit.command.CommandSender;
@@ -53,7 +54,8 @@ public class Top
         {
             BankAccount account = topAccounts.get(i);
             sender.sendMessage(Settings.format("TopListItemFormat",
-                String.valueOf(i), account.getOwner(), account.getBalance().toString()));
+                String.valueOf(i), account.getOwner(),
+                HandlerUtils.formatAmount(account.getBalance())));
         }
     }
 }

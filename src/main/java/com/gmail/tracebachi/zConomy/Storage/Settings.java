@@ -48,6 +48,7 @@ public class Settings
         currencyNamePlural = config.getString("CurrencyName.Plural");
         defaultBalance = config.getDouble("DefaultBalance");
         purgeDays = config.getInt("PurgeDays");
+        formats = new HashMap<>();
 
         ConfigurationSection section = config.getConfigurationSection("Formats");
 

@@ -29,6 +29,8 @@ import org.bukkit.entity.Player;
 import java.math.BigDecimal;
 import java.util.Map;
 
+import static com.gmail.tracebachi.zConomy.Utils.HandlerUtils.formatAmount;
+
 /**
  * Created by Trace Bachi (tracebachi@gmail.com, BigBossZee) on 3/6/16.
  */
@@ -91,15 +93,15 @@ public class Pay
 
             if(senderAccount.getBalance().compareTo(new BigDecimal(amount)) < 0)
             {
-                sender.sendMessage(Settings.format("InsufficientFunds", String.valueOf(amount)));
+                sender.sendMessage(Settings.format("InsufficientFunds", formatAmount(amount)));
                 return;
             }
 
             database.addToBalance(sender.getName(), -amount);
-            sender.sendMessage(Settings.format("PaySent", amountString, receiver));
+            sender.sendMessage(Settings.format("PaySent", formatAmount(amount), receiver));
 
             database.addToBalance(receiver, amount);
-            HandlerUtils.sendMessage(receiver, Settings.format("PayReceived", amountString, sender.getName()));
+            HandlerUtils.sendMessage(receiver, Settings.format("PayReceived", formatAmount(amount), sender.getName()));
 
             PaymentEvent event = new PaymentEvent(sender.getName(), receiver, amount);
             Bukkit.getPluginManager().callEvent(event);
