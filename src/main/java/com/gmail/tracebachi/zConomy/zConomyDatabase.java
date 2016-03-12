@@ -351,7 +351,7 @@ public class zConomyDatabase
             " `owner`       VARCHAR(64) NOT NULL," +
             " `balance`     DECIMAL(20, 2) NOT NULL," +
             " `timestamp`   DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP," +
-            " CONSTRAINT PRIMARY KEY (`owner`)," +
+            " CONSTRAINT PRIMARY KEY (`owner`)" +
             " ) ENGINE = InnoDB DEFAULT CHARSET = utf8;";
     }
 
