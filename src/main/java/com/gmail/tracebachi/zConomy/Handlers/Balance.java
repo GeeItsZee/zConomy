@@ -46,6 +46,12 @@ public class Balance
             return;
         }
 
+        if(!sender.getName().equalsIgnoreCase(name) && !sender.hasPermission("zConomy.BalanceOther"))
+        {
+            sender.sendMessage(Settings.format("NoPermission", "zConomy.BalanceOther"));
+            return;
+        }
+
         zConomyDatabase database = plugin.getzConomyDatabase();
         BankAccount account = database.getBalance(name);
 
