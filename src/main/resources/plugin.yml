@@ -2,7 +2,7 @@ name: zConomy
 main: com.gmail.tracebachi.zConomy.zConomy
 version: 1.1
 author: Trace Bachi (tracebachi@gmail.com, BigBossZee)
-depends: [Vault, DbShare]
+depend: [Vault, DbShare]
 
 commands:
   money:
