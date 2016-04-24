@@ -48,17 +48,23 @@ Formats:
   GeneralFailure: 'Uh oh! Report this to an admin or dev: {0}'
   ConfigReloaded: 'zConomy configuration has been reloaded.'
 
+  CreateUsage: '/money create <name>'
+  GiveUsage: '/money give <name> <amount>'
+  PayUsage: '/money pay <name> <amount>'
+  SetUsage: '/money set <name> <amount>'
+  TakeUsage: '/money take <name> <amount>'
+
   HelpMessage: |
-               /money - Check your balance
-               /money create <name> - Create a new bank account
-               /money give <name> <amount> - Add money to a bank account
-               /money help - Display this help message
-               /money pay <name> <amount> - Transfer money from your bank account to another
-               /money purge - Remove banks with the default money
-               /money remove <name> - Remove a bank account
-               /money set <name> <amount> - Set the money for a bank account
-               /money take <name> <amount> - Take money from a bank account
-               /money top - Find the top 10 bank accounts with the most money
+               /money - &7Check your balance&r
+               /money create <name> - &7Create a new bank account&r
+               /money give <name> <amount> - &7Add money to a bank account&r
+               /money help - &7Display this help message&r
+               /money pay <name> <amount> - &7Transfer money from your bank account to another&r
+               /money purge - &7Remove banks with the default money&r
+               /money remove <name> - &7Remove a bank account&r
+               /money set <name> <amount> - &7Set the money for a bank account&r
+               /money take <name> <amount> - &7Take money from a bank account&r
+               /money top - &7Find the top 10 bank accounts with the most money&r
 
 # Debug Mode?
 Debug: false

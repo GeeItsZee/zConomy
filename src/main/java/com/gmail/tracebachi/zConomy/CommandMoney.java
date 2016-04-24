@@ -17,6 +17,7 @@
 package com.gmail.tracebachi.zConomy;
 
 import com.gmail.tracebachi.zConomy.Handlers.*;
+import com.gmail.tracebachi.zConomy.Storage.Settings;
 import com.gmail.tracebachi.zConomy.Utils.Registerable;
 import com.gmail.tracebachi.zConomy.Utils.Shutdownable;
 import org.bukkit.command.Command;
@@ -93,41 +94,83 @@ public class CommandMoney implements CommandExecutor, Registerable, Shutdownable
         {
             balance.handle(sender, sender.getName());
         }
-        else if(args.length >= 2 && args[0].equalsIgnoreCase("create"))
+        else if(args[0].equalsIgnoreCase("create"))
         {
-            create.handle(sender, args[1]);
+            if(args.length < 2)
+            {
+                sender.sendMessage(Settings.format("CreateUsage"));
+            }
+            else
+            {
+                create.handle(sender, args[1]);
+            }
         }
-        else if(args.length >= 3 && args[0].equalsIgnoreCase("give"))
+        else if(args[0].equalsIgnoreCase("give"))
         {
-            give.handle(sender, args[1], args[2]);
+            if(args.length < 3)
+            {
+                sender.sendMessage(Settings.format("GiveUsage"));
+            }
+            else
+            {
+                give.handle(sender, args[1], args[2]);
+            }
         }
         else if(args[0].equalsIgnoreCase("help"))
         {
             help.handle(sender);
         }
-        else if(args.length >= 3 && args[0].equalsIgnoreCase("pay"))
+        else if(args[0].equalsIgnoreCase("pay"))
         {
-            pay.handle(sender, args[1], args[2]);
+            if(args.length < 3)
+            {
+                sender.sendMessage(Settings.format("PayUsage"));
+            }
+            else
+            {
+                pay.handle(sender, args[1], args[2]);
+            }
         }
         else if(args[0].equalsIgnoreCase("purge"))
         {
             purge.handle(sender);
         }
-        else if(args.length >= 1 && args[0].equalsIgnoreCase("reload"))
+        else if(args[0].equalsIgnoreCase("reload"))
         {
             reload.handle(sender);
         }
-        else if(args.length >= 2 && args[0].equalsIgnoreCase("remove"))
+        else if(args[0].equalsIgnoreCase("remove"))
         {
-            remove.handle(sender, args[1]);
+            if(args.length < 2)
+            {
+                sender.sendMessage(Settings.format("RemoveUsage"));
+            }
+            else
+            {
+                remove.handle(sender, args[1]);
+            }
         }
-        else if(args.length >= 3 && args[0].equalsIgnoreCase("set"))
+        else if(args[0].equalsIgnoreCase("set"))
         {
-            set.handle(sender, args[1], args[2]);
+            if(args.length < 3)
+            {
+                sender.sendMessage(Settings.format("SetUsage"));
+            }
+            else
+            {
+                set.handle(sender, args[1], args[2]);
+            }
         }
-        else if(args.length >= 3 && args[0].equalsIgnoreCase("take"))
+        else if(args[0].equalsIgnoreCase("take"))
         {
-            take.handle(sender, args[1], args[2]);
+            if(args.length < 3)
+            {
+                sender.sendMessage(Settings.format("TakeUsage"));
+            }
+            else
+            {
+                take.handle(sender, args[1], args[2]);
+            }
         }
         else if(args[0].equalsIgnoreCase("top"))
         {

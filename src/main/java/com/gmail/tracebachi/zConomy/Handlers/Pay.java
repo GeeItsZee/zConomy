@@ -105,6 +105,8 @@ public class Pay
 
             PaymentEvent event = new PaymentEvent(sender.getName(), receiver, amount);
             Bukkit.getPluginManager().callEvent(event);
+
+            plugin.info(sender.getName() + " paid " + receiver + " " + amount);
         }
         catch(Exception ex)
         {
