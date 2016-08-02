@@ -6,16 +6,12 @@
 
     <groupId>com.gmail.tracebachi</groupId>
     <artifactId>zConomy</artifactId>
-    <version>1.1</version>
+    <version>1.1.0</version>
 
     <repositories>
         <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-        </repository>
-        <repository>
-            <id>vault-repo</id>
-            <url>http://nexus.theyeticave.net/content/repositories/pub_releases</url>
         </repository>
     </repositories>
 
@@ -29,7 +25,7 @@
         <dependency>
             <groupId>com.gmail.tracebachi</groupId>
             <artifactId>DbShare</artifactId>
-            <version>1.0</version>
+            <version>1.1.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -41,6 +37,12 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
