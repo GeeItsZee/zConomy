@@ -15,32 +15,51 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.gmail.tracebachi.zConomy.Handlers;
+package com.gmail.tracebachi.zConomy;
 
-import com.gmail.tracebachi.zConomy.Settings;
-import org.bukkit.command.CommandSender;
-
-import java.util.regex.Pattern;
+import java.math.BigDecimal;
 
 /**
  * @author GeeItsZee (tracebachi@gmail.com)
  */
-public class Help
+public class BankAccount
 {
-  private static final Pattern NEWLINE_PATTERN = Pattern.compile("\\\\n");
+  private final String owner;
+  private final BigDecimal balance;
+  private final long lastUpdateAt;
 
-  private final Settings settings;
-
-  public Help(Settings settings)
+  public BankAccount(String owner, BigDecimal balance)
   {
-    this.settings = settings;
+    this.owner = owner;
+    this.balance = balance;
+    this.lastUpdateAt = System.currentTimeMillis();
   }
 
-  public void handle(CommandSender sender)
+  public BankAccount(String owner, BigDecimal balance, long lastUpdateAt)
   {
-    for (String line : NEWLINE_PATTERN.split(settings.format("HelpMessage")))
-    {
-      sender.sendMessage(line);
-    }
+    this.owner = owner;
+    this.balance = balance;
+    this.lastUpdateAt = lastUpdateAt;
+  }
+
+  public String getOwner()
+  {
+    return owner;
+  }
+
+  public BigDecimal getBalance()
+  {
+    return balance;
+  }
+
+  public long getLastUpdateAt()
+  {
+    return lastUpdateAt;
+  }
+
+  @Override
+  public String toString()
+  {
+    return "{owner: " + owner + ", balance: " + balance + ", lastUpdateAt:" + lastUpdateAt + "}";
   }
 }

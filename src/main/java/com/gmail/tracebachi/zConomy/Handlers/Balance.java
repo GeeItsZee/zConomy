@@ -1,68 +1,70 @@
 /*
- * This file is part of zConomy.
+ * zConomy - Database-backed, Vault-compatible economy plugin
+ * Copyright (C) 2017 tracebachi@gmail.com (GeeItsZee)
  *
- * zConomy is free software: you can redistribute it and/or modify
+ * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * zConomy is distributed in the hope that it will be useful,
+ * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with zConomy.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.gmail.tracebachi.zConomy.Handlers;
 
-import com.gmail.tracebachi.zConomy.Storage.BankAccount;
-import com.gmail.tracebachi.zConomy.Storage.Settings;
-import com.gmail.tracebachi.zConomy.zConomy;
+import com.gmail.tracebachi.zConomy.BankAccount;
+import com.gmail.tracebachi.zConomy.Settings;
 import com.gmail.tracebachi.zConomy.zConomyDatabase;
+import com.gmail.tracebachi.zConomy.zConomyPlugin;
 import org.bukkit.command.CommandSender;
 
 import java.math.BigDecimal;
 
-import static com.gmail.tracebachi.zConomy.Utils.HandlerUtils.formatAmount;
-
 /**
- * Created by Trace Bachi (tracebachi@gmail.com, BigBossZee) on 3/6/16.
+ * @author GeeItsZee (tracebachi@gmail.com)
  */
 public class Balance
 {
-    private final zConomy plugin;
+  private static final String COMMAND_PERM = "zConomy.BalanceOther";
 
-    public Balance(zConomy plugin)
+  private final zConomyPlugin plugin;
+  private final Settings settings;
+
+  public Balance(zConomyPlugin plugin, Settings settings)
+  {
+    this.plugin = plugin;
+    this.settings = settings;
+  }
+
+  public void handle(CommandSender sender, String name)
+  {
+    if (name.equalsIgnoreCase("console"))
     {
-        this.plugin = plugin;
+      sender.sendMessage(settings.format("NoAccountForConsole"));
+      return;
     }
 
-    public void handle(CommandSender sender, String name)
+    if (!sender.getName().equalsIgnoreCase(name) && !sender.hasPermission(COMMAND_PERM))
     {
-        if(name.equalsIgnoreCase("console"))
-        {
-            sender.sendMessage(Settings.format("NoAccountForConsole"));
-            return;
-        }
-
-        if(!sender.getName().equalsIgnoreCase(name) && !sender.hasPermission("zConomy.BalanceOther"))
-        {
-            sender.sendMessage(Settings.format("NoPermission", "zConomy.BalanceOther"));
-            return;
-        }
-
-        zConomyDatabase database = plugin.getzConomyDatabase();
-        BankAccount account = database.getBalance(name);
-
-        if(account == null)
-        {
-            sender.sendMessage(Settings.format("NoAccountFound", name));
-        }
-        else
-        {
-            BigDecimal balance = account.getBalance();
-            sender.sendMessage(Settings.format("AccountBalance", formatAmount(balance)));
-        }
+      sender.sendMessage(settings.format("NoPermission", COMMAND_PERM));
+      return;
     }
+
+    zConomyDatabase database = plugin.getzConomyDatabase();
+    BankAccount account = database.getBankAccount(name);
+
+    if (account == null)
+    {
+      sender.sendMessage(settings.format("NoAccountFound", name));
+      return;
+    }
+
+    BigDecimal balance = account.getBalance();
+    sender.sendMessage(settings.format("AccountBalance", settings.formatAmount(balance)));
+  }
 }

@@ -17,30 +17,20 @@
  */
 package com.gmail.tracebachi.zConomy.Handlers;
 
-import com.gmail.tracebachi.zConomy.Settings;
-import org.bukkit.command.CommandSender;
-
-import java.util.regex.Pattern;
-
 /**
  * @author GeeItsZee (tracebachi@gmail.com)
  */
-public class Help
+interface ParseDoubleUtil
 {
-  private static final Pattern NEWLINE_PATTERN = Pattern.compile("\\\\n");
-
-  private final Settings settings;
-
-  public Help(Settings settings)
+  static Double parseDouble(String source)
   {
-    this.settings = settings;
-  }
-
-  public void handle(CommandSender sender)
-  {
-    for (String line : NEWLINE_PATTERN.split(settings.format("HelpMessage")))
+    try
     {
-      sender.sendMessage(line);
+      return Double.parseDouble(source);
+    }
+    catch (NumberFormatException ex)
+    {
+      return null;
     }
   }
 }
