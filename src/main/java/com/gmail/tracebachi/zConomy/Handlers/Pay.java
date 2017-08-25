@@ -90,30 +90,20 @@ public class Pay
       return;
     }
 
-    String formatteeAmount = settings.formatAmount(amount);
+    String formattedAmount = settings.formatAmount(amount);
 
     if (senderAccount.getBalance().compareTo(new BigDecimal(amount)) < 0)
     {
-      sender.sendMessage(settings.format("InsufficientFunds", formatteeAmount));
+      sender.sendMessage(settings.format("InsufficientFunds", formattedAmount));
       return;
     }
 
     database.addToBankAccountBalance(senderName, -amount);
-    sender.sendMessage(settings.format("PaySent", formatteeAmount, receiver));
+    sender.sendMessage(settings.format("PaySent", formattedAmount, receiver));
 
     database.addToBankAccountBalance(receiver, amount);
-    sendMessage(receiver, settings.format("PayReceived", formatteeAmount, senderName));
+    plugin.sendMessage(receiver, settings.format("PayReceived", formattedAmount, senderName));
 
     plugin.getLogger().info(senderName + " paid " + receiver + " " + amount);
-  }
-
-  private void sendMessage(String name, String message)
-  {
-    Player player = plugin.getServer().getPlayer(name);
-
-    if (player != null)
-    {
-      player.sendMessage(message);
-    }
   }
 }
